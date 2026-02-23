@@ -6,10 +6,10 @@ const testimonials = [
   {
     id: 1,
     name: "Dr. Priya Sharma",
-    title: "Cardiologist",
+    title: "Dermatologist — AGA Specialist",
     location: "New Delhi, India",
     quote:
-      "Transformed patient outcomes in heart failure management. The precision and reliability of Asle's cardiac line have become indispensable in my practice.",
+      "Asle's AGA treatment line has transformed how I manage androgenetic alopecia. My patients see visible regrowth within 3 months — the results speak for themselves.",
     rating: 5,
     initials: "PS",
     color: "#007C6E",
@@ -17,10 +17,10 @@ const testimonials = [
   {
     id: 2,
     name: "Rajesh Kumar",
-    title: "Patient",
+    title: "Patient — ED Care",
     location: "Bengaluru, India",
     quote:
-      "Quality of life improved dramatically after starting treatment. I can finally enjoy daily activities with my family without constant worry.",
+      "Quality of life improved dramatically after starting Asle's ED treatment. My confidence is back, and I can finally enjoy life without constant worry.",
     rating: 5,
     initials: "RK",
     color: "#36b5ac",
@@ -28,10 +28,10 @@ const testimonials = [
   {
     id: 3,
     name: "Dr. Sarah Wilson",
-    title: "Oncologist",
+    title: "Veterinarian — Pet Health",
     location: "Boston, USA",
     quote:
-      "Best-in-class efficacy with excellent tolerability profile. My patients consistently show improved markers within the first treatment cycle.",
+      "Asle's veterinary-grade pet health range is best-in-class. Excellent tolerability and consistent outcomes across breeds — my go-to recommendation.",
     rating: 5,
     initials: "SW",
     color: "#005A4E",
@@ -39,10 +39,10 @@ const testimonials = [
   {
     id: 4,
     name: "Pharmacist Meera Patel",
-    title: "Clinical Pharmacist",
+    title: "Clinical Pharmacist — Edema",
     location: "Mumbai, India",
     quote:
-      "Patients consistently report better compliance and fewer side effects. Asle products have simplified our dispensing recommendations.",
+      "Patients on Asle's edema management therapy consistently report better compliance and faster relief. Fluid retention is no longer a daily struggle for them.",
     rating: 5,
     initials: "MP",
     color: "#4ECDC4",
@@ -50,10 +50,10 @@ const testimonials = [
   {
     id: 5,
     name: "Dr. Ahmed Khan",
-    title: "Endocrinologist",
+    title: "Endocrinologist — Diabetes",
     location: "Dubai, UAE",
     quote:
-      "Unmatched innovation in diabetes management. The extended-release formulations have significantly improved patient adherence rates.",
+      "Unmatched innovation in diabetes management. Asle's extended-release formulations have significantly improved patient adherence and blood sugar regulation.",
     rating: 5,
     initials: "AK",
     color: "#007C6E",
@@ -61,10 +61,10 @@ const testimonials = [
   {
     id: 6,
     name: "Nurse Lisa Brown",
-    title: "Senior Nurse Practitioner",
+    title: "Infection Control — Antibiotics",
     location: "London, UK",
     quote:
-      "Simplified complex treatment protocols significantly. The clear dosing guidelines and patient education materials are best-in-class.",
+      "Asle's antibiotic range has simplified complex treatment protocols significantly. Broad-spectrum efficacy with minimal resistance concerns — truly essential.",
     rating: 5,
     initials: "LB",
     color: "#36b5ac",
