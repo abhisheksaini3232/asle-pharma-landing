@@ -119,9 +119,6 @@ const FAQ = () => {
       <div className="faq__container">
         {/* Header */}
         <div className="faq__header">
-          <span className="faq__badge">
-            <i className="fas fa-question-circle"></i> FAQ
-          </span>
           <h2 className="faq__title">
             Frequently Asked{" "}
             <span className="faq__title-accent">Questions</span>
