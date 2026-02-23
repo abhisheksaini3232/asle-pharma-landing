@@ -1,87 +1,74 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Products.css";
 
-/* Placeholder product data — replace image paths with your uploaded images from src/images/products/ */
+/* Product images */
+import agaImg from "../../images/products/AGA.png";
+import edImg from "../../images/products/ED.png";
+import petsImg from "../../images/products/PETS.png";
+import edemaImg from "../../images/products/EDEMA.png";
+import diabetesImg from "../../images/products/DIABETES.png";
+import antibioticsImg from "../../images/products/ANTIBIOTICS.png";
+
 const products = [
   {
     id: 1,
-    name: "CardioShield Pro",
-    category: "Cardiology",
+    name: "AGA Treatment",
+    category: "AGA",
     description:
-      "Advanced cardiovascular protection therapy for heart health management.",
-    image: null,
+      "Advanced androgenetic alopecia therapy promoting hair regrowth and follicle revitalization.",
+    image: agaImg,
     badge: "Bestseller",
-    color: "#e74c3c",
+    color: "#007C6E",
   },
   {
     id: 2,
-    name: "NeuroCalm Plus",
-    category: "Neurology",
+    name: "ED Care",
+    category: "ED",
     description:
-      "Next-generation neurological support for cognitive function improvement.",
-    image: null,
-    badge: "New",
-    color: "#9b59b6",
+      "Clinically proven erectile dysfunction solution for improved performance and confidence.",
+    image: edImg,
+    badge: "Popular",
+    color: "#005A4E",
   },
   {
     id: 3,
-    name: "ImmunoBoost 360",
-    category: "Immunology",
+    name: "Pet Health",
+    category: "PETS",
     description:
-      "Comprehensive immune system fortification for year-round protection.",
-    image: null,
-    badge: "Popular",
-    color: "#2ecc71",
+      "Veterinary-grade pharmaceutical care for your beloved pets' health and wellbeing.",
+    image: petsImg,
+    badge: "New",
+    color: "#4ECDC4",
   },
   {
     id: 4,
-    name: "OncoGuard Therapy",
-    category: "Oncology",
+    name: "Edema Relief",
+    category: "EDEMA",
     description:
-      "Targeted oncology treatment supporting cancer care and remission.",
-    image: null,
-    badge: "Breakthrough",
-    color: "#e67e22",
+      "Targeted edema management therapy for effective fluid retention control and comfort.",
+    image: edemaImg,
+    badge: "Trusted",
+    color: "#36b5ac",
   },
   {
     id: 5,
-    name: "RespiClear Advanced",
-    category: "Respiratory",
+    name: "Diabetes Management",
+    category: "DIABETES",
     description:
-      "Premium respiratory care solution for lung health and clear breathing.",
-    image: null,
+      "Comprehensive diabetes care solutions for blood sugar regulation and patient wellness.",
+    image: diabetesImg,
     badge: "Featured",
-    color: "#3498db",
+    color: "#007C6E",
   },
   {
     id: 6,
-    name: "GastroEase Ultra",
-    category: "Gastroenterology",
+    name: "Antibiotic Range",
+    category: "ANTIBIOTIC",
     description:
-      "Effective gastrointestinal health supplement for digestive wellness.",
-    image: null,
-    badge: "Trusted",
-    color: "#1abc9c",
-  },
-  {
-    id: 7,
-    name: "DermaGlow Rx",
-    category: "Dermatology",
-    description:
-      "Clinical-grade skincare therapy for healthy and radiant skin.",
-    image: null,
-    badge: "Premium",
-    color: "#f39c12",
-  },
-  {
-    id: 8,
-    name: "OrthoFlex Joint",
-    category: "Orthopedics",
-    description:
-      "Advanced joint care formula for mobility and bone strength support.",
-    image: null,
-    badge: "Recommended",
-    color: "#007C6E",
+      "Broad-spectrum antibiotic formulations for effective infection treatment and prevention.",
+    image: antibioticsImg,
+    badge: "Essential",
+    color: "#005A4E",
   },
 ];
 
@@ -100,38 +87,6 @@ const Products = () => {
       : products.filter((p) => p.category === activeCategory);
 
   const totalSlides = filteredProducts.length;
-
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  }, [totalSlides]);
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
-
-  // Auto-play
-  useEffect(() => {
-    if (isAutoPlaying && totalSlides > 1) {
-      intervalRef.current = setInterval(() => {
-        nextSlide();
-      }, 3000);
-    }
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [isAutoPlaying, totalSlides, nextSlide]);
-
-  // Reset slide when category changes
-  useEffect(() => {
-    setCurrentSlide(0);
-  }, [activeCategory]);
-
-  const handleMouseEnter = () => setIsAutoPlaying(false);
-  const handleMouseLeave = () => setIsAutoPlaying(true);
 
   // Calculate visible cards per view
   const getVisibleCount = () => {
@@ -152,6 +107,42 @@ const Products = () => {
   }, []);
 
   const maxSlide = Math.max(0, totalSlides - visibleCount);
+  const canSlide = totalSlides > visibleCount;
+  /* When fewer cards than slots, use totalSlides so each card fills more space */
+  const effectiveVisible = canSlide ? visibleCount : totalSlides;
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
+  }, [maxSlide]);
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev <= 0 ? maxSlide : prev - 1));
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  // Auto-play
+  useEffect(() => {
+    if (isAutoPlaying && canSlide) {
+      intervalRef.current = setInterval(() => {
+        nextSlide();
+      }, 3000);
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isAutoPlaying, canSlide, nextSlide]);
+
+  // Reset slide when category changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [activeCategory]);
+
+  const handleMouseEnter = () => setIsAutoPlaying(false);
+  const handleMouseLeave = () => setIsAutoPlaying(true);
+
   const safeCurrentSlide = Math.min(currentSlide, maxSlide);
 
   return (
@@ -191,34 +182,43 @@ const Products = () => {
           ref={carouselRef}
         >
           {/* Nav Arrows */}
-          <button
-            className="products__arrow products__arrow--left"
-            onClick={prevSlide}
-            aria-label="Previous"
-          >
-            <i className="fas fa-chevron-left"></i>
-          </button>
-          <button
-            className="products__arrow products__arrow--right"
-            onClick={nextSlide}
-            aria-label="Next"
-          >
-            <i className="fas fa-chevron-right"></i>
-          </button>
+          {canSlide && (
+            <button
+              className="products__arrow products__arrow--left"
+              onClick={prevSlide}
+              aria-label="Previous"
+            >
+              <i className="fas fa-chevron-left"></i>
+            </button>
+          )}
+          {canSlide && (
+            <button
+              className="products__arrow products__arrow--right"
+              onClick={nextSlide}
+              aria-label="Next"
+            >
+              <i className="fas fa-chevron-right"></i>
+            </button>
+          )}
 
           {/* Track */}
           <div className="products__track-wrapper">
             <div
-              className="products__track"
+              className={`products__track ${!canSlide ? "products__track--centered" : ""}`}
               style={{
-                transform: `translateX(-${safeCurrentSlide * (100 / visibleCount)}%)`,
+                transform: canSlide
+                  ? `translateX(-${safeCurrentSlide * (100 / visibleCount)}%)`
+                  : "none",
               }}
             >
               {filteredProducts.map((product) => (
                 <div
                   key={product.id}
                   className="products__card"
-                  style={{ minWidth: `${100 / visibleCount}%` }}
+                  style={{
+                    minWidth: `${100 / effectiveVisible}%`,
+                    maxWidth: `${100 / effectiveVisible}%`,
+                  }}
                   onClick={() => console.log("Clicked:", product.name)}
                 >
                   <div className="products__card-inner">
@@ -276,16 +276,18 @@ const Products = () => {
           </div>
 
           {/* Dots */}
-          <div className="products__dots">
-            {filteredProducts.map((_, index) => (
-              <button
-                key={index}
-                className={`products__dot ${index === safeCurrentSlide ? "products__dot--active" : ""}`}
-                onClick={() => goToSlide(index)}
-                aria-label={`Slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {canSlide && (
+            <div className="products__dots">
+              {Array.from({ length: maxSlide + 1 }, (_, index) => (
+                <button
+                  key={index}
+                  className={`products__dot ${index === safeCurrentSlide ? "products__dot--active" : ""}`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* View All CTA */}

@@ -74,7 +74,6 @@ const testimonials = [
 /* ── Component ───────────────────────────────────────────── */
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [slidesPerView, setSlidesPerView] = useState(3);
   const trackRef = useRef(null);
 
@@ -157,11 +156,7 @@ const Testimonials = () => {
         </div>
 
         {/* Carousel */}
-        <div
-          className="testimonials__carousel"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
+        <div className="testimonials__carousel">
           {/* Prev arrow */}
           <button
             className="testimonials__arrow testimonials__arrow--prev"
