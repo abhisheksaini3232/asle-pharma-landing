@@ -37,15 +37,15 @@ const Hero = () => {
       reset() {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        this.r = Math.random() * 2.5 + 0.8;
+        this.r = Math.random() * 4 + 1.5;
         this.dx = (Math.random() - 0.5) * 0.6;
         this.dy = (Math.random() - 0.5) * 0.6;
-        this.opacity = Math.random() * 0.5 + 0.2;
+        this.opacity = Math.random() * 0.5 + 0.4;
         const colors = [
           [86, 224, 196], // mint/accent
-          [78, 205, 196], // teal
-          [0, 124, 110], // deep teal
-          [120, 230, 200], // light mint
+          [100, 230, 210], // bright teal
+          [0, 180, 160], // vivid teal
+          [140, 240, 215], // bright mint
         ];
         this.color = colors[Math.floor(Math.random() * colors.length)];
       }
@@ -63,7 +63,7 @@ const Hero = () => {
         // glow
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.opacity * 0.15})`;
+        ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.opacity * 0.3})`;
         ctx.fill();
       }
     }
@@ -76,19 +76,19 @@ const Hero = () => {
 
     // --- Connection lines ---
     const drawConnections = () => {
-      const maxDist = 140;
+      const maxDist = 160;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * 0.12;
+            const alpha = (1 - dist / maxDist) * 0.25;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.strokeStyle = `rgba(78,205,196,${alpha})`;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = 1;
             ctx.stroke();
           }
         }
@@ -108,17 +108,17 @@ const Hero = () => {
         const phase = time * speed + i * 0.25;
         const x1 = helixX + Math.sin(phase) * amplitude;
         const x2 = helixX + Math.sin(phase + Math.PI) * amplitude;
-        const alpha = 0.15 + 0.1 * Math.sin(phase);
+        const alpha = 0.3 + 0.15 * Math.sin(phase);
 
         // strand 1 dot
         ctx.beginPath();
-        ctx.arc(x1, y, 3, 0, Math.PI * 2);
+        ctx.arc(x1, y, 4, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(86,224,196,${alpha})`;
         ctx.fill();
 
         // strand 2 dot
         ctx.beginPath();
-        ctx.arc(x2, y, 3, 0, Math.PI * 2);
+        ctx.arc(x2, y, 4, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(78,205,196,${alpha})`;
         ctx.fill();
 
@@ -127,8 +127,8 @@ const Hero = () => {
           ctx.beginPath();
           ctx.moveTo(x1, y);
           ctx.lineTo(x2, y);
-          ctx.strokeStyle = `rgba(255,255,255,${alpha * 0.4})`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(255,255,255,${alpha * 0.7})`;
+          ctx.lineWidth = 1.5;
           ctx.stroke();
         }
       }
@@ -143,7 +143,7 @@ const Hero = () => {
       rotSpeed: (Math.random() - 0.5) * 0.005,
       dx: (Math.random() - 0.5) * 0.3,
       dy: (Math.random() - 0.5) * 0.3,
-      opacity: Math.random() * 0.08 + 0.04,
+      opacity: Math.random() * 0.15 + 0.08,
     }));
 
     const drawHex = (hx, hy, size, rot, opacity) => {
@@ -157,7 +157,7 @@ const Hero = () => {
       }
       ctx.closePath();
       ctx.strokeStyle = `rgba(78,205,196,${opacity})`;
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 2;
       ctx.stroke();
     };
 
@@ -167,12 +167,12 @@ const Hero = () => {
       const cy = h * 0.38;
       for (let i = 0; i < 3; i++) {
         const t = ((time * 0.001 + i * 1.2) % 4) / 4;
-        const r = t * 180;
-        const alpha = (1 - t) * 0.08;
+        const r = t * 200;
+        const alpha = (1 - t) * 0.15;
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(0,124,110,${alpha})`;
-        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = `rgba(0,180,160,${alpha})`;
+        ctx.lineWidth = 2;
         ctx.stroke();
       }
     };
@@ -196,7 +196,7 @@ const Hero = () => {
         h * 0.4,
         w * 0.6,
       );
-      grd.addColorStop(0, "rgba(0,124,110,0.18)");
+      grd.addColorStop(0, "rgba(0,124,110,0.3)");
       grd.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, w, h);
@@ -210,7 +210,7 @@ const Hero = () => {
         h * 0.25,
         w * 0.35,
       );
-      grd2.addColorStop(0, "rgba(78,205,196,0.08)");
+      grd2.addColorStop(0, "rgba(78,205,196,0.15)");
       grd2.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = grd2;
       ctx.fillRect(0, 0, w, h);
